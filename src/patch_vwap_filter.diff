@@ -1,0 +1,17 @@
+--- src/core/filters/vwap_filter.py
++++ src/core/filters/vwap_filter.py (patched)
+@@ -11,10 +11,12 @@
+         side = ctx.get("side_hint", "none")
+         # 2 последних часа в сторону VWAP
+         last_closes = df_sig["close"].tail(2)
++        dev_bps = ((float(last_closes.iloc[-1]) / float(vwap_val)) - 1.0) * 10_000.0
++        dev_min = getattr(cfg, "VWAP_DEV_BPS_MIN", None)
+         if side == "long":
+-            ok = bool((last_closes > vwap_val).all())
++            ok = bool((last_closes > vwap_val).all()) and (True if dev_min is None else (dev_bps >= float(dev_min)))
+         elif side == "short":
+-            ok = bool((last_closes < vwap_val).all())
++            ok = bool((last_closes < vwap_val).all()) and (True if dev_min is None else ((-dev_bps) >= float(dev_min)))
+         else:
+             ok = False
+         return {"ok": ok, "score": 1.0 if ok else 0.0, "notes": {"vwap": float(vwap_val)}}

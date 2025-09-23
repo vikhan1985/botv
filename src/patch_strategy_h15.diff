@@ -1,0 +1,20 @@
+--- src/core/strategy_h15.py
++++ src/core/strategy_h15.py (patched)
+@@ -2,7 +2,7 @@
+ from typing import Any, Dict
+ from .contracts import DataSlice
+ from .filters.base import REGISTRY
+-from .filters import atr_filter, trend_filter, vwap_filter, oi_filter, ofi_filter, sr_filter, adx_filter, entry_filter  # noqa: F401
++from .filters import atr_filter, trend_filter, vwap_filter, oi_filter, ofi_filter, sr_filter, adx_filter, entry_filter, candle_filter  # noqa: F401
+ from ..indicators.ema import ema  # для уровней
+ from ..indicators.atr import atr_wilder
+ 
+@@ -76,7 +76,7 @@
+ 
+     # 1) Гоним фильтры по реестру (порядок важен: тренд первым — даёт side)
+     ctx: dict[str, Any] = {}
+-    order = ["trend","vwap","oi","ofi","sr","adx","atr","entry"]  # можно переставлять; trend должен быть раньше SR/VWAP/entry
++    order = ["trend","vwap","oi","ofi","sr","adx","candle","atr","entry"]  # можно переставлять; trend должен быть раньше SR/VWAP/entry
+     results: dict[str, Any] = {}
+     for name in order:
+         f = REGISTRY[name]

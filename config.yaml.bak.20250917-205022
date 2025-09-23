@@ -1,0 +1,96 @@
+TELEGRAM_ENABLED: true
+TESTNET: false
+TZ: Asia/Almaty
+TELEGRAM_CHAT_ID: 413984568
+ENTRY_RANGE_BPS: 10
+BASE_TIMEFRAME: 1h
+TREND_TF_SLOW: 4h
+TREND_TF_FAST: 15m
+REQUIRE_SRT: true
+SRT_MODE: RELAX
+SRT_FALLBACK_BPS: 22
+REQUIRE_CONFIRM_ON_CLOSE: true
+SWING_LOOKBACK_H15: 6
+SR_CONFIRM_BPS: 6
+SR_NEAR_BPS: 16
+SR_NEAR_NEEDS:
+- vwap
+- adx
+- ofi
+MANDATORY_FILTERS:
+- liquidity
+- atr
+- trend
+- vwap
+- oi
+- ofi
+- sr
+- adx
+- entry
+MANDATORY_REQUIRE_N: 7
+TP_MODE: R_MULTI
+TP1_R_MULT: 1.8
+TP2_R_MULT: 2.5
+MIN_RR1: 1.8
+SL_MIN_PCT: 0.55
+SL_BUFFER_BPS: 3
+MIN_RR1_RELAX_DELTA: 0
+ATR_15M_MIN_PCT: 0.35
+ATR_1H_MIN_PCT: 0.6
+ADX_H1_MIN: 24
+OFI_THRESHOLD: 0.18
+OI_MIN_CHANGE_PCT_15M: 0.6
+ENTRY_CONFIRM: true
+ENTRY_TFS:
+- 5m
+- 15m
+ENTRY_BARS: 2
+ENTRY_REQUIRE_ANY: true
+MAX_SPREAD_BPS: 7.0
+DEPTH_BPS: 12.0
+MIN_DEPTH_USDT: 70000
+SCHED_MAX_PARALLEL: 6
+SCAN_JITTER_MS: 80
+risk:
+  REQUIRE_CONFIRM_ON_CLOSE: true
+  MIN_RR1: 1.8
+filters:
+  ADX_H1_MIN: 24
+  ADX_H15_MIN: 18
+  VWAP_DEV_BPS_MIN: 4
+  SR_CONFIRM_BPS: 6
+  SR_NEAR_BPS: 16
+  SR_NEAR_NEEDS:
+  - vwap
+  - adx
+  - ofi
+  OFI_THRESHOLD: 0.18
+  OI_CHANGE_PCT_MIN: 0.6
+  LIQ_MIN_USDT_24H: 20000000
+  MAX_BAR_EXPANSION_BPS: 80
+  MAX_UPPER_WICK_PCT: 50
+gates:
+  REQUIRE_SRT: true
+  MANDATORY_FILTERS:
+  - liquidity
+  - atr
+  - trend
+  - sr
+  - adx
+  - vwap
+  - ofi
+  - oi
+  MANDATORY_REQUIRE_N: 6
+VWAP_DEV_BPS_MIN: 4
+LIQ_MIN_USDT_24H: 20000000
+MAX_BAR_EXPANSION_BPS: 80
+MAX_UPPER_WICK_PCT: 50
+MAX_LOWER_WICK_PCT: 50
+STATS_ENABLED: true
+STATS_DB_PATH: data/stats.db
+SYMBOL_COOLDOWN_SEC: 1200
+# ВСТАВЬ ЭТОТ БЛОК В СВОЙ config.yaml (рядом с остальными параметрами стратегии)
+ENTRY_MODE: "retest_vwap"        # immediate | retest_vwap | pullback_atr | retest_sr
+ENTRY_ATR_MULT: 0.25             # для pullback_atr
+ENTRY_CANCEL_IF_RUNAWAY_BPS: 20  # не гонимся, если цель далеко от текущей цены
+# MIN_RR1: 1.8                    # RR теперь пересчитывается от entry

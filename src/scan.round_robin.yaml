@@ -1,0 +1,2 @@
+# Enable round-robin scanning (split manual watchlist into groups)
+ROUND_ROBIN_GROUPS: 1   # set to 1 for ~60 pairs; 2..4 if you expand to 120+

@@ -1,0 +1,56 @@
+PROFILE: "scalp06"
+
+BASE_TIMEFRAME: "15m"
+ENTRY_TF_FAST: "5m"           # микроконфирм
+TREND_TF_SLOW: "1h"
+
+REQUIRE_CONFIRM_ON_CLOSE: true
+REQUIRE_SRT: false            # допускаем «середину»
+SCORE_MIN: 70                 # понижаем порог силы
+MIN_FILTERS_PASSED: 6
+MANDATORY_FILTERS: ["vwap","flow","trend"]   # flow = (oi OR ofi), trend = adx/h1
+MANDATORY_REQUIRE_N: 3
+
+TP_MODE: "PCT"
+TP_PCT: 0.7                   # бруто ≈0.7% → нетто ~0.6%
+SL_MIN_PCT: 0.25
+SL_MAX_PCT: 0.50
+SL_BUFFER_BPS: 4
+MIN_RR1: 1.2                  # держим асимметрию даже на «середине»
+BE_AT_PCT: 0.30               # безубыток при +0.3%
+TRAIL_AFTER_BE: "swing_5m"    # тралим по локальным свингам 5m
+
+filters:
+  ADX_H1_MIN: 18
+  ADX_15M_MIN: 16
+  VWAP_DEV_BPS_MIN: 3         # разрешаем входы у VWAP/полос
+  SR_CONFIRM_BPS: 4
+  SR_NEAR_BPS: 10
+  OFI_THRESHOLD: 0.12
+  OFI_WINDOW_SEC: 240
+  OI_MIN_CHANGE_PCT_15M: 0.4
+  LIQ_MIN_USDT_24H: 30000000
+  ATR_15M_MIN_PCT: 0.25
+  MAX_BAR_EXPANSION_BPS: 60
+  MAX_UPPER_WICK_PCT: 55
+  MAX_LOWER_WICK_PCT: 55
+
+watchlist:
+  AUTO: true
+  TOP_N: 60
+  REFRESH_MS: 300000
+  RANK_BY: ["spot_usdt_volume_24h","oi_change_15m","atr_15m"]
+  EXCLUDE_NEW_LISTINGS: true
+
+entry:
+  MODE: "confirm_close_or_vwap_cross"     # пересечение/ретест VWAP
+  RETEST_SOURCE: ["vwap"]
+  VWAP_BAND_BPS: 5                        # «полоса» вокруг VWAP для TC
+  USE_EXCHANGE_CLOCK: true
+
+position_sizing:
+  BASE_RISK_PCT: 0.6
+  MULTIPLIER_BY_SCORE:
+    "90-100": 1.1
+    "80-89": 1.0
+    "70-79": 0.8

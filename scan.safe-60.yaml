@@ -1,0 +1,9 @@
+# Safe scan preset for ~60 pairs
+# Target: steady load without rate-limit hits on Binance
+SCHED_MAX_PARALLEL: 6       # parallel workers (I/O-bound)
+SCAN_INTERVAL_MS: 60000     # scan cycle ~60s
+SCAN_JITTER_MS: 250         # spread requests in time
+# If you use auto-watchlist via CLI, set --watchlist-top 60
+# Optional hints (if your code uses them):
+CCXT_TIMEOUT_MS: 15000
+CCXT_MAX_RETRIES: 3
